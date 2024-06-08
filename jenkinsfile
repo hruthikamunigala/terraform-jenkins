@@ -1,47 +1,36 @@
 pipeline {
     agent any
-       tools {
-        terraform 'terraform'
-       }
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('aws-access-key')
+        AWS_ACCESS_KEY_ID = credentials('aws-access-key')
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
-        AWS_DEFAULT_REGION    = 'us-east-1'
-         
+        AWS_DEFAULT_REGION = 'us-east-1'
     }
-     stages {
-	    stage('Fetch code') {
-            steps {
-               git branch : 'main' , url : 'https://github.com/hruthikamunigala/terraform-jenkins.git'
-            }
-        }
+    tools {
+        terraform 'terraform'
+    }
+    stages {
         stage('Checkout') {
             steps {
-                
-                git 'https://github.com/hruthikamunigala/terraform-jenkins.git'
+                git branch: 'main', url: 'https://github.com/hruthikamunigala/terraform-jenkins.git'
             }
         }
         stage('Terraform Init') {
             steps {
-                
                 sh 'terraform init'
             }
         }
         stage('Terraform Plan') {
             steps {
-                
                 sh 'terraform plan -out=tfplan'
             }
         }
         stage('Terraform Apply') {
             steps {
-                
                 sh 'terraform apply -auto-approve tfplan'
             }
         }
         stage('Upload to Repository') {
             steps {
-                
                 sh 'git add .'
                 sh 'git commit -m "Terraform changes"'
                 sh 'git push origin main' 
