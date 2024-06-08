@@ -29,6 +29,11 @@ pipeline {
                 sh 'terraform apply -auto-approve tfplan'
             }
         }
+        stage('Terraform action') {
+            steps {
+                sh 'terraform ${action} --auto-approve'
+            }
+        }
         stage('Upload to Repository') {
             steps {
                 sh 'git add .'
