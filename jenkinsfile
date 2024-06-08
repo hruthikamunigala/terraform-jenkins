@@ -8,8 +8,12 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
          
     }
-    
-    stages {
+     stages {
+	    stage('Fetch code') {
+            steps {
+               git branch : 'main' url : 'https://github.com/hruthikamunigala/terraform-jenkins.git'
+            }
+        }
         stage('Checkout') {
             steps {
                 
