@@ -37,7 +37,7 @@ pipeline {
                 
                 sh 'git add .'
                 sh 'git commit -m "Terraform changes"'
-                sh 'git push origin master' 
+                sh 'git push origin main' 
             }
         }
     }
