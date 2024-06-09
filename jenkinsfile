@@ -38,7 +38,7 @@ pipeline {
             steps {
                 sh 'git add .'
                 sh 'git commit -m "Terraform changes"'
-                sh 'git push https://github.com/hruthikamunigala/terraform-jenkins.git main ' 
+                sh 'git push origin  ' 
             }
         }
     }
