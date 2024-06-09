@@ -34,12 +34,12 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
 
-      - name: Get Terraform Outputs
+      - name: Generate Terraform Outputs
         id: terraform_outputs
         run: |
-          echo "public_ip=$(terraform output -raw public_ip)" >> terraform_outputs.env
-          echo "instance_id=$(terraform output -raw instance_id)" >> terraform_outputs.env
-
+          echo "public_ip=${{ steps.terraform_outputs.outputs.public_ip }}" >> terraform_outputs.env
+          echo "instance_id=${{ steps.terraform_outputs.outputs.instance_id }}" >> terraform_outputs.env
+      
       - name: Load Terraform Outputs
         run: |
           source terraform_outputs.env
