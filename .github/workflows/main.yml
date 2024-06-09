@@ -33,3 +33,13 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
+
+      - name: Get Terraform Outputs
+        id: terraform_outputs
+        run: |
+          echo "::set-output name=public_ip::$(terraform output -json public_ip)"
+          echo "::set-output name=instance_id::$(terraform output -json instance_id)"
+
+    outputs:
+        public_ip: ${{ steps.terraform_outputs.outputs.public_ip }}
+        instance_id: ${{ steps.terraform_outputs.outputs.instance_id }}
