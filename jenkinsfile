@@ -38,7 +38,7 @@ pipeline {
             steps {
                 sh 'git add .'
                 sh 'git commit -m "Terraform changes"'
-                sh 'git push origin  ' 
+                sh 'git push --set-upstream origin main ' 
             }
         }
     }
